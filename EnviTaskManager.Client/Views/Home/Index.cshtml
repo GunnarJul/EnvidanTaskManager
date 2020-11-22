@@ -1,0 +1,114 @@
+﻿@{
+    ViewData["Title"] = " Envidan Task Manager Site";
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/site.js"></script>
+<script>
+    $(document).ready(function () {
+        getTaskInfo();
+    });
+</script>
+
+@if (User.Identity.IsAuthenticated)
+{
+<div class="text-center">
+    <h1 class="display-4">
+        Envidan Task Manager Site
+    </h1>
+    <a href="https://portal.envidan.com" target="_blank"> Envidan portal</a>
+    <hr />
+    <div class="container" style="text-align:left;">
+        <div class="row">
+            <div class="col-sm">
+                <label class="col-form-label">Vælg kunde</label>
+            </div>
+            <div class="col-sm">
+                <label class="col-form-label">Vælg task type</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <select id="selectCustomer" onchange="getCustomerInfo();" class="custom-select-sm">
+                    <option value="45" selected="selected">Silkeborg forsyning</option>
+                    <option value="15">Billund Vand</option>
+                    <option value="16">Vejle forsyning</option>
+                    <option value="130">Aalborg Vand</option>
+                    <option value="131">Vandcenter Syd</option>
+                </select>
+            </div>
+            <div class="col-sm">
+                <select id="selectTask" onchange="getTaskInfo();" class="custom-select-sm">
+                    <option value="1" selected="selected">Danvand. Vandforsyning data</option>
+                    <option value="2">Dandas. Afløbs data</option>
+                    <option value="3">Sro. Rensedata</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="container" style="text-align:left;">
+        <div class="row">
+            <div class="col-sm">
+                <input type="button" class="btn btn-info" onclick="getTaskInfo();" value="Status" id="btnListTask" />
+                <input type="button" class="btn btn-info" onclick="startTask();" value="Kør nu" id="btnStartTask" />
+            </div>
+            <div class="col-sm">
+                <input type="button" class="btn btn-info" onclick="terminateTask();" value="Stop " id="btnTerminateTask" />
+                <input type="button" class="btn btn-info" onclick="startSchedulerTask();" value="Scheduler" id="btnTerminateTask" />
+                Kl:
+                <select id="selectHour" class="custom-select-sm">
+                    <option value="0">00:00</option>
+                    <option value="1">01:00</option>
+                    <option value="2" selected="selected">02:00</option>
+                    <option value="3">03:00</option>
+                    <option value="4">04:00</option>
+                    <option value="5">05:00</option>
+                    <option value="6">06:00</option>
+                    <option value="7">07:00</option>
+                    <option value="8">08:00</option>
+                    <option value="9">09:00</option>
+                    <option value="10">10:00</option>
+                    <option value="11">11:00</option>
+                    <option value="12">12:00</option>
+                    <option value="13">13:00</option>
+                    <option value="14">14:00</option>
+                    <option value="15">15:00</option>
+                    <option value="16">16:00</option>
+                    <option value="17">17:00</option>
+                    <option value="18">18:00</option>
+                    <option value="19">19:00</option>
+                    <option value="20">20:00</option>
+                    <option value="21">21:00</option>
+                    <option value="22">22:00</option>
+                    <option value="23">23:00</option>
+                </select>
+            </div>
+
+        </div>
+        <br />
+
+        <table class="table" id="tableInfoId">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Key</th>
+                    <th scope="col">Value</th>
+                </tr>
+            </thead>
+            <tbody id="tableInfoBody">
+            </tbody>
+        </table>
+
+
+        <hr />
+    </div>
+</div>
+    }
+    else
+    {
+<h3>
+    Velkommen. Login og gå til administration af Task .<br>
+</h3>
+
+    }
+
